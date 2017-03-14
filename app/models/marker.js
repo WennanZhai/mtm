@@ -3,6 +3,7 @@
 var mongoose	= require('mongoose');
 var Schema	= mongoose.Schema;
 
+
 var MarkerSchema = new Schema({
     title: String,
     type: String,
@@ -12,5 +13,9 @@ var MarkerSchema = new Schema({
     xLocation: Number,
     yLocation: Number,
 });
+
+MarkerSchema.statics.findByTitle = function(title, currentOB){
+	return this.find({ title: new RegExp(title, 'i')}, currentOB);
+};
 
 module.exports = mongoose.model('Marker', MarkerSchema);

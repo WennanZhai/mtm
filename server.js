@@ -86,6 +86,7 @@ router.route('/markers')
 // on routes that end in /markers/:marker_id
 // ----------------------------------------------------
 
+
 router.route('/markers/:marker_id')
 
     // get the marker with this id (accessed at GET http://localhost:8080/api/markers/:marker_id)
@@ -136,8 +137,21 @@ router.route('/markers/:marker_id')
         });
     });
 
+// on routes that end in /markers/:marker_title
+// ----------------------------------------------------
 
+router.route('/markers/:marker_title')
+    .get(function(req, res) {
+        console.log(req.params.marker_title)
 
+        Marker.findByTitle(req.params.marker_title, function(err, marker) {
+            console.log(req.params.marker_title)
+
+            if (err)
+                res.send(err);
+            res.json(marker);
+        });
+});
 
 // REGISTER OUR ROUTES -------------------------------
 // all of our routes will be prefixed with /api
